@@ -10,7 +10,7 @@ You can select language in client/env file.
 Written in TypeScript VUE + NestJS.
 
 ![Gerite lists](https://github.com/vigeron/gerite/blob/master/screen1.png)
-![Gerite login](https://github.com/vigeron/gerite/blob/master/screen2.png)
+![Gerite lists](https://github.com/vigeron/gerite/blob/master/screen2.png)
 
 ### Backend build with
  * NodeJS
@@ -20,6 +20,8 @@ Written in TypeScript VUE + NestJS.
 
 ### Fontend build with
  * Vue
+ * Vuex
+ * Vuetify
 
 ## Installing
 
