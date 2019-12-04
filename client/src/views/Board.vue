@@ -1,6 +1,32 @@
 <template>
   <v-container class="container">
-    <v-breadcrumbs :items="breadcrumbs" divider=">" large></v-breadcrumbs>
+    <v-breadcrumbs icons divider=">" large>
+      <v-breadcrumbs-item href="/dashboard">
+        Dashboard
+      </v-breadcrumbs-item>
+      <v-breadcrumbs-item>
+        <template v-if="!isEditBoardName">
+          {{ currentBoard.name }}
+          <v-btn text icon x-small @click="editBoardName">
+            <v-icon x-small>mdi-pencil</v-icon>
+          </v-btn>
+        </template>
+        <template v-else>
+          <v-text-field
+            v-model="currentBoard.name"
+            single-line
+            dense
+            solo
+            flat
+            outlined
+            @blur="updateBoardName"
+            v-on:keyup.enter="updateBoardName"
+            class="inputBoardName"
+            hide-details>
+          </v-text-field>
+        </template>
+      </v-breadcrumbs-item>
+    </v-breadcrumbs>
       <draggable
         v-model="mlist"
         filter=".ignore-elements"
@@ -34,9 +60,9 @@ export default {
   },
   data() {
     return {
+      isEditBoardName: false,
       inputName: false,
       isLoading: false,
-      boardName: null,
       listName: '',
       breadcrumbs: [
         { text: 'Dashboard', disabled: false, to: '/dashboard' },
@@ -45,7 +71,7 @@ export default {
     };
   },
   mounted() {
-    this.breadcrumbs.push({ text: this.$store.state.current_board.name, disabled: true });
+    this.breadcrumbs.push({ text: `${this.$store.state.current_board.name} <v-icon>mdi-edit</v-icon>`, disabled: true });
     this.loadLists();
   },
   computed: {
@@ -57,7 +83,7 @@ export default {
         this.$store.dispatch('updateSortList', lists);
       },
     },
-    ...mapGetters({ lists: 'lists' }),
+    ...mapGetters({ lists: 'lists', currentBoard: 'currentBoard' }),
   },
   methods: {
     async loadLists() {
@@ -91,6 +117,16 @@ export default {
         this.hideFormName();
         this.listName = '';
       }
+    },
+    editBoardName() {
+      this.isEditBoardName = true;
+      console.log(this.currentBoard.name);
+    },
+    updateBoardName() {
+      this.isEditBoardName = false;
+      this.$http.put(`/boards/${this.$route.params.id}`, { name: this.currentBoard.name });
+      this.$store.commit('updateBoard');
+      console.log('save boardname');
     },
   },
 };
@@ -127,5 +163,10 @@ export default {
   overflow: auto;
   padding-bottom: 1rem;
   height: calc(100% - 65px);
+}
+
+.v-text-field--outlined.v-input--dense.v-text-field--outlined > .v-input__control > .v-input__slot
+{
+  min-height:32px;
 }
 </style>

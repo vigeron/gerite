@@ -1,4 +1,4 @@
-import { Controller, Post, Body, UseGuards, Get, Req, Delete } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, Get, Req, Delete, Put } from '@nestjs/common';
 import { BoardsService } from './boards.service';
 import { AuthGuard } from '@nestjs/passport';
 import { Board } from './schemas/schema';
@@ -20,6 +20,12 @@ export class BoardsController {
     boardDto.createdBy = request.user.userId;
     boardDto.slug = slugify(boardDto.name.toLowerCase());
     return await this.boardsService.create(boardDto);
+  }
+
+  @Put(':boardId')
+  @UseGuards(AuthGuard('jwt'))
+  async updateName(@Req() request) {
+    return await this.boardsService.updateName(request.params.boardId,request.body.name, request.user.userId);
   }
 
   @Delete(':id')

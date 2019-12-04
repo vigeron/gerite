@@ -21,6 +21,7 @@ export default new Vuex.Store({
   getters: {
     boards: state => state.boards,
     lists: state => state.lists,
+    currentBoard: state => state.current_board,
   },
   mutations: {
     initStore(state) {
@@ -48,6 +49,9 @@ export default new Vuex.Store({
     setBoard(state, board) {
       state.current_board = board;
       localStorage.name = board.name;
+    },
+    updateBoard(state) {
+      localStorage.name = state.current_board.name;
     },
     setBoards(state, items) {
       state.boards = items;

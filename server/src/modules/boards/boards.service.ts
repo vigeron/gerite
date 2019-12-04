@@ -30,6 +30,15 @@ export class BoardsService {
     }
   }
 
+  async updateName(boardID: any, newBoardName: string, userID: string) {
+    const result = await this.boardModel.find({ createdBy: userID, _id: boardID });
+    if (result.length > 0) {
+      return await this.boardModel.updateOne({ _id: boardID, createdBy: userID }, { name: newBoardName });
+    } else {
+      throw new HttpException('board does not exists', 400);
+    }
+  }
+
   async destroy(boardId, createdBy) {
     const board = await this.boardModel.findOne({_id: boardId } );
     if(`${board.createdBy}` !== createdBy) {

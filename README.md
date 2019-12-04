@@ -67,16 +67,16 @@ npm run serve
 ```
 
 ### TODO:
-- change REST to WebSocket
-- add edit user profile
-- select language on site
-- change select color method in create board
-- add function to change name board
-- add function to change name list
-- add action logs panel
-- add comments to cards
-- add more method login (GitHub, FB...)
-- create public/private board
+- [x] add function to change name board
+- [ ] change select color method in create board
+- [ ] add function to change name list
+- [ ] select language on site
+- [ ] add edit user profile
+- [ ] add action logs panel
+- [ ] add comments to cards
+- [ ] add more method login (GitHub, FB...)
+- [ ] create public/private board
+- [ ] change REST to WebSocket
 
 ### License
 This application is licensed under [GPL-3.0](https://github.com/vigeron/gerite/LICENSE). More information can be [found here](https://www.gnu.org/licenses/gpl-3.0.en.html).
