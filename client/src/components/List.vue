@@ -209,8 +209,8 @@ export default {
   border:0 !important;
 }
 .lists__list{
-  min-width:230px;
-  width: 230px;
+  min-width:270px;
+  width: 270px;
   height: 100%;
   margin: 0 0.5rem;
   font-size: 14px;
