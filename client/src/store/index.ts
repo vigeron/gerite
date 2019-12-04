@@ -14,6 +14,7 @@ export default new Vuex.Store({
     cardMoveTo: null,
     boards: [],
     lists: [],
+    edit_name: null,
     current_board: {
       name: '',
     },
@@ -22,6 +23,7 @@ export default new Vuex.Store({
     boards: state => state.boards,
     lists: state => state.lists,
     currentBoard: state => state.current_board,
+    editName: state => state.edit_name,
   },
   mutations: {
     initStore(state) {
@@ -45,6 +47,9 @@ export default new Vuex.Store({
       state.avatar = data.avatar;
       axios.defaults.headers.common.Authorization = `Bearer ${state.access_token}`;
       router.push({ path: '/dashboard' });
+    },
+    setEditName(state, item) {
+      state.edit_name = item;
     },
     setBoard(state, board) {
       state.current_board = board;

@@ -1,4 +1,4 @@
-import { Controller, UseGuards, Get, Req, Param, Post, HttpCode, Delete } from '@nestjs/common';
+import { Controller, UseGuards, Get, Req, Param, Post, HttpCode, Delete, Put } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { List } from './scheme/schema';
 import { ListsService } from './lists.service';
@@ -19,6 +19,12 @@ export class ListsController {
   @UseGuards(AuthGuard('jwt'))
   async updateOrder(@Req() req) {
     return await this.listsService.updateOrdering(req.body, req.user);
+  }
+
+  @Put(':listId')
+  @UseGuards(AuthGuard('jwt'))
+  async update(@Req() req) {
+    return await this.listsService.update(req.body.boardId, req.params.listId, req.user.userId, req.body.name);
   }
 
   @Post()

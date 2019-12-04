@@ -47,12 +47,6 @@ export default {
           condition: true,
         },
         {
-          icon: 'mdi-update',
-          title: this.$root.$t('change-name'),
-          action: this.changeName,
-          condition: true,
-        },
-        {
           icon: 'mdi-archive',
           title: this.$t('archive-list'),
           action: this.archiveList,
@@ -64,9 +58,6 @@ export default {
       this.$store.dispatch('deleteList', this.$props.list._id);
     },
     async archiveList() {
-      alert('The method is not yet implemented');
-    },
-    async changeName() {
       alert('The method is not yet implemented');
     },
   },

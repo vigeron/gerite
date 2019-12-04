@@ -5,7 +5,7 @@
         Dashboard
       </v-breadcrumbs-item>
       <v-breadcrumbs-item>
-        <template v-if="!isEditBoardName">
+        <template v-if="editName !== currentBoard">
           {{ currentBoard.name }}
           <v-btn text icon x-small @click="editBoardName">
             <v-icon x-small>mdi-pencil</v-icon>
@@ -83,7 +83,7 @@ export default {
         this.$store.dispatch('updateSortList', lists);
       },
     },
-    ...mapGetters({ lists: 'lists', currentBoard: 'currentBoard' }),
+    ...mapGetters({ lists: 'lists', currentBoard: 'currentBoard', editName: 'editName' }),
   },
   methods: {
     async loadLists() {
@@ -119,11 +119,10 @@ export default {
       }
     },
     editBoardName() {
-      this.isEditBoardName = true;
-      console.log(this.currentBoard.name);
+      this.$store.commit('setEditName', this.currentBoard);
     },
     updateBoardName() {
-      this.isEditBoardName = false;
+      this.$store.commit('setEditName', null);
       this.$http.put(`/boards/${this.$route.params.id}`, { name: this.currentBoard.name });
       this.$store.commit('updateBoard');
       console.log('save boardname');
@@ -168,5 +167,10 @@ export default {
 .v-text-field--outlined.v-input--dense.v-text-field--outlined > .v-input__control > .v-input__slot
 {
   min-height:32px;
+}
+
+.v-btn:hover:before,
+.v-btn:focus:before {
+  color: blue;
 }
 </style>

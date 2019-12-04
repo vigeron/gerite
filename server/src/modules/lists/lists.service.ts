@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException } from '@nestjs/common';
 import { List } from './scheme/schema';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
@@ -22,6 +22,15 @@ export class ListsService {
   async destroy(listId: any, createdBy: any) {
     await this.cardModel.deleteMany({ listId, createdBy });
     return await this.listModel.deleteOne({ _id: listId, createdBy});
+  }
+
+  async update(boardId: any, listId: any, userId: any, newListName: string) {
+    const result = await this.listModel.find({ createdBy: userId, boardId, _id: listId });
+    if (result.length > 0) {
+      return await this.listModel.updateOne({ _id: listId, createdBy: userId }, { name: newListName });
+    } else {
+      throw new HttpException('list does not exists', 400);
+    }
   }
 
   async updateOrdering(items: any, user: any) {

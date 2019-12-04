@@ -4,7 +4,26 @@
       outlined
     >
       <v-toolbar dense flat color="blue-grey lighten-5 handle" height="38">
-        {{ item.name }}
+        <template v-if="editName !== item">
+          {{ item.name }}
+          <v-btn text icon x-small @click="editListName(item)">
+            <v-icon x-small>mdi-pencil</v-icon>
+          </v-btn>
+        </template>
+        <template v-else>
+          <v-text-field
+            v-model="item.name"
+            single-line
+            dense
+            solo
+            flat
+            outlined
+            @blur="updateListName(item)"
+            v-on:keyup.enter="updateListName(item)"
+            class="inputListName ignore-elements"
+            hide-details>
+          </v-text-field>
+        </template>
         <v-spacer></v-spacer>
         <ListMenu :list="item" />
       </v-toolbar>
@@ -30,7 +49,7 @@
                 <v-icon small>mdi-pencil</v-icon>
               </v-btn>
               <span v-if="card !== editingCard" v-html="textToHTML(card.text)"></span>
-              <v-form v-if="card === editingCard" class="edit-form filtered ">
+              <v-form v-if="card === editingCard" class="edit-form filtered">
                 <v-textarea
                   class="edit-textarea"
                   outlined
@@ -69,6 +88,7 @@
     </v-card>
 </template>
 <script>
+import { mapGetters } from 'vuex';
 import draggable from 'vuedraggable';
 import ListMenu from '@/components/ListMenu.vue';
 
@@ -77,12 +97,16 @@ export default {
   props: ['item'],
   data() {
     return {
+      isEditName: false,
       inputText: false,
       showEdit: false,
       editingCard: null,
       cardText: '',
       cards: [],
     };
+  },
+  computed: {
+    ...mapGetters({ editName: 'editName' }),
   },
   mounted() {
     this.loadLists();
@@ -195,6 +219,19 @@ export default {
       const result = str.replace(/\*+(.*)?/gi, '<ul><li>$1</li></ul>').replace(/(<\/ul>\n(.*)<ul>*)+/gi, '');
       return result.replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1<br>$2');
     },
+    editListName(_item) {
+      this.$store.commit('setEditName', _item);
+    },
+    async updateListName(listItem) {
+      this.$store.commit('setEditName', null);
+      try {
+        await this.$http.put(`/lists/${listItem._id}`, { boardId: listItem.boardId, name: listItem.name });
+      } catch (err) {
+        if (err.response.status === 401) {
+          this.$store.commit('logout', '/login');
+        }
+      }
+    },
   },
   components: {
     draggable,
@@ -274,4 +311,20 @@ export default {
     background:#dddddd;
   }
 }
+
+.v-toolbar__content > .v-btn.v-btn--icon:first-child {
+  margin-left: 0;
+}
+
+.v-text-field--outlined.v-input--dense.v-text-field--outlined > .v-input__control > .v-input__slot
+{
+  margin-top:5px;
+  min-height:32px;
+}
+
+.handle {
+  cursor: move;
+}
+
+
 </style>

@@ -68,8 +68,8 @@ npm run serve
 
 ### TODO:
 - [x] add function to change name board
+- [x] add function to change name list
 - [ ] change select color method in create board
-- [ ] add function to change name list
 - [ ] select language on site
 - [ ] add edit user profile
 - [ ] add action logs panel
