@@ -25,12 +25,13 @@
              <v-card-title>{{ $t('enter-name-board') }}</v-card-title>
               <v-form ref="form" v-model="valid" @submit.prevent="createBoard">
                 <div class="modalBoardForm">
-                  <div v-if="alert" class="error">{{ alertMessage }}</div>
+                  <div v-if="alert" class="error">{{ $t(alertMessage) }}</div>
                   <v-text-field
                     v-model="form.name"
                     required
                     outlined>
                   </v-text-field>
+                  <h3 class="text-left">{{ $t('select-color') }}</h3>
                   <template v-for="(bg, index) in backgrounds">
                     <label class="color-item" :key=index>
                       <input type="radio" v-model="form.background" :value=bg name="background">

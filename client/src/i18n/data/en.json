@@ -13,6 +13,7 @@
   "create-board": "Create board",
   "cancel": "Cancel",
   "enter-name-board": "Enter name board",
+  "select-color": "Select color",
   "duplicate-board": "This board name already exists",
   "add-card": "Add card...",
   "add-list": "Add list",
@@ -22,5 +23,8 @@
   "delete-list": "Delete list",
   "archive-list": "Archive list",
   "change-name": "Change name",
-  "wrong-password": "Wrong login or password"
+  "wrong-password": "Wrong login or password",
+  "error-board-name": "Wrong or empty board name",
+  "error-board-background": "You must select background color"
+
 }

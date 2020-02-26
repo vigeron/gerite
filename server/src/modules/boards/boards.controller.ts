@@ -1,4 +1,4 @@
-import { Controller, Post, Body, UseGuards, Get, Req, Delete, Put } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, Get, Req, Delete, Put, HttpException } from '@nestjs/common';
 import { BoardsService } from './boards.service';
 import { AuthGuard } from '@nestjs/passport';
 import { Board } from './schemas/schema';
@@ -18,6 +18,12 @@ export class BoardsController {
   async create(@Req() request) {
     const boardDto = request.body;
     boardDto.createdBy = request.user.userId;
+    if (!boardDto.name) {
+      throw new HttpException('error-board-name', 400);
+    }
+    if (!boardDto.background) {
+      throw new HttpException('error-board-background', 400);
+    }
     boardDto.slug = slugify(boardDto.name.toLowerCase());
     return await this.boardsService.create(boardDto);
   }
@@ -25,7 +31,7 @@ export class BoardsController {
   @Put(':boardId')
   @UseGuards(AuthGuard('jwt'))
   async updateName(@Req() request) {
-    return await this.boardsService.updateName(request.params.boardId,request.body.name, request.user.userId);
+    return await this.boardsService.updateName(request.params.boardId, request.body.name, request.user.userId);
   }
 
   @Delete(':id')

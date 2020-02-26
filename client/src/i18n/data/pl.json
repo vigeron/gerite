@@ -13,6 +13,7 @@
   "create-board": "Utwórz tablicę",
   "cancel": "Anuluj",
   "enter-name-board": "Wprowadź nazwę tablicy",
+  "select-color": "Wybierz kolor",
   "duplicate-board": "Już istnieje tablica o takiej nazwie",
   "add-card": "Dodaj kartę",
   "add-list": "Dodaj listę",
@@ -22,5 +23,7 @@
   "delete-list": "Usuń listę",
   "archive-list": "Archiwizuj listę",
   "change-name": "Zmień nazwę",
-  "wrong-password": "Błędny login lub hasło"
+  "wrong-password": "Błędny login lub hasło",
+  "error-board-name": "Podaj nazwę tablicy",
+  "error-board-background": "Wybierz kolor tablicy"
 }
