@@ -169,6 +169,10 @@ export default {
   min-height:32px;
 }
 
+.v-toolbar__content > .v-btn.v-btn--icon:first-child {
+    margin-left: 0 !important;
+}
+
 .v-btn:hover:before,
 .v-btn:focus:before {
   color: blue;

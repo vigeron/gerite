@@ -31,12 +31,12 @@
                     required
                     outlined>
                   </v-text-field>
-                  <v-select
-                    :items="backgrounds"
-                    label="Select color"
-                    v-model="form.background"
-                    outlined>
-                  </v-select>
+                  <template v-for="(bg, index) in backgrounds">
+                    <label class="color-item" :key=index>
+                      <input type="radio" v-model="form.background" :value=bg name="background">
+                      <div class="select-color" :style = "{ 'background': bg }"></div>
+                    </label>
+                  </template>
                   <div class="modalBoardForm__buttons">
                     <v-btn type="submit">{{ $t('create-board') }}</v-btn>
                     <v-btn @click="closeFormBoardModal">{{ $t('cancel') }}</v-btn>
@@ -62,7 +62,7 @@ export default {
       overlay: false,
       valid: false,
       isLoading: false,
-      backgrounds: ['white', 'green', 'lime', 'yellow', 'blue'],
+      backgrounds: ['white', 'green', 'lime', 'yellow', 'blue', 'red', 'orange', 'purple'],
       breadcrumbs: [
         { text: 'Dashboard', disabled: true },
       ],
@@ -87,7 +87,6 @@ export default {
         res = await this.$http.get('/boards');
         this.$store.commit('setBoards', res.data);
       } catch (err) {
-        console.log(err);
         if (err.response.status === 401) {
           this.$store.commit('logout', '/login');
         }
@@ -105,6 +104,7 @@ export default {
     async createBoard() {
       let board;
       try {
+        console.log(this.form);
         board = await this.$http.post('/boards', this.form);
         this.boards.push(board.data);
         this.closeFormBoardModal();
@@ -169,10 +169,31 @@ export default {
       margin: 0.5rem;
     }
   }
+
+  .color-item {
+    .select-color {
+    display: inline-block;
+    width:20%;
+    height:50px;
+    margin:5px;
+    }
+    & > input {
+      visibility: hidden; /* Makes input not-clickable */
+      position: absolute; /* Remove input from document flow */
+    }
+    & > input + div {
+      cursor:pointer;
+      border:2px solid transparent;
+    }
+    & > input:checked + div{
+      border: 1px solid #000000;
+    }
+  }
 }
 
 .v-dialog__container {
     display: unset;
 }
+
 
 </style>
