@@ -27,9 +27,11 @@
                 <div class="modalBoardForm">
                   <div v-if="alert" class="error">{{ $t(alertMessage) }}</div>
                   <v-text-field
+                    single-line=true
                     v-model="form.name"
                     required
-                    outlined>
+                    :background-color = form.background
+                    outlined dense>
                   </v-text-field>
                   <h3 class="text-left">{{ $t('select-color') }}</h3>
                   <template v-for="(bg, index) in backgrounds">
@@ -63,7 +65,7 @@ export default {
       overlay: false,
       valid: false,
       isLoading: false,
-      backgrounds: ['white', 'green', 'lime', 'yellow', 'blue', 'red', 'orange', 'purple'],
+      backgrounds: ['white', '#4caf50', '#02ff02', 'yellow', '#2196f3', 'red', 'orange', '#9c27b0'],
       breadcrumbs: [
         { text: 'Dashboard', disabled: true },
       ],
@@ -105,7 +107,6 @@ export default {
     async createBoard() {
       let board;
       try {
-        console.log(this.form);
         board = await this.$http.post('/boards', this.form);
         this.boards.push(board.data);
         this.closeFormBoardModal();
