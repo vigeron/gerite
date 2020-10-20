@@ -66,6 +66,19 @@ Run local server localhost:8080
 npm run serve
 ```
 
+Run remote server
+Set up .env config file
+
+```
+// remote address
+VUE_APP_API_URL=http://localhost:3000
+
+// select language en or pl
+VUE_APP_I18N_LOCALE=en
+
+// select fallback language en or pl
+VUE_APP_I18N_FALLBACK_LOCALE=en
+```
 ### TODO:
 - [x] add function to change name board
 - [x] add function to change name list
