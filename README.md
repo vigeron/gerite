@@ -91,6 +91,9 @@ VUE_APP_I18N_FALLBACK_LOCALE=en
 - [ ] add more method login (GitHub, FB...)
 - [ ] create public/private board
 - [ ] change REST to WebSocket
+- [ ] add safe url in tasks
+- [ ] can add images in tasks
+- [ ] can add attachments
 
 ### License
 This application is licensed under [GPL-3.0](https://github.com/vigeron/gerite/LICENSE). More information can be [found here](https://www.gnu.org/licenses/gpl-3.0.en.html).
