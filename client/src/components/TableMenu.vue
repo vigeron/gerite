@@ -80,7 +80,7 @@ export default {
           await this.$http.delete(`/boards/${boardId}`);
           const index = this.$store.state.boards.map(item => item._id === boardId);
           this.$store.state.boards.splice(index, 1);
-          this.$router.push('/dashboard');
+          this.$router.push('dashboard');
         } catch (err) {
           console.log(err);
         }

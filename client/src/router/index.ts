@@ -22,13 +22,15 @@ const routes = [
   },
 ];
 
+
 const router = new VueRouter({
   mode: 'history',
-  base: process.env.BASE_URL,
+  base: process.env.BASE_URL || "/",
   routes,
 });
 
 router.beforeEach((to, from, next) => {
+	console.log('base url' + ',' + process.env.BASE_URL);
   // redirect to login page if not logged in and trying to access a restricted page
   const loggedIn = !!localStorage.access_token;
   if (to.meta.authRequired && !loggedIn) {
