@@ -9,8 +9,9 @@ You can select language in client/env file.
  
 Written in TypeScript VUE + NestJS.
 
-![Gerite lists](https://github.com/vigeron/gerite/blob/master/screen1.png)
-![Gerite lists](https://github.com/vigeron/gerite/blob/master/screen2.png)
+![](https://github.com/vigeron/gerite/blob/master/usage1.gif)
+![](https://github.com/vigeron/gerite/blob/master/screen1.png)
+![](https://github.com/vigeron/gerite/blob/master/screen2.png)
 
 ### Backend build with
  * NodeJS
